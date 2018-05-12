@@ -25,12 +25,12 @@
     <!-- Main content -->
     <section class="content">
       <div class="row">
-        <div class="col-xs-12">
+        <div class="col-xs-8">
           <div class="box">
             <!-- /.box-header -->
             <div class="container">
               <div class="row">
-                  <div class="col-md-8">
+                  <div class="col-xs-6">
                       <ul id="treeview">
                           <li data-icon-cls="fa fa-inbox">Inbox
                               <ul>
@@ -71,14 +71,51 @@
                           </li>
                       </ul>
                   </div>
-                  <div class="col-md-4">
-                    <h2>Add Menu</h2>
-                  </div>
               </div>
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
+        </div>
+
+        <div class="col-xs-4">
+          <div class="box box-info">
+            <div class="box-header with-border">
+              <h3 class="box-title">Add/Edit Page</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <div class="form-horizontal">
+              <div class="box-body">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Parent</label>
+
+                  <div class="col-sm-10">
+                    <input class="form-control" id="parent" placeholder="Parent Name" type="text">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Name</label>
+
+                  <div class="col-sm-10">
+                    <input class="form-control" id="name" placeholder="Page Name" type="text">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2">File</label>
+
+                  <div class="col-sm-10">
+                    <input id="file" type="file">
+                  </div>
+                </div>
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <button type="submit" class="btn btn-success pull-right">Submit</button>
+              </div>
+              <!-- /.box-footer -->
+            </div>
+          </div>
         </div>
         <!-- /.col -->
       </div>

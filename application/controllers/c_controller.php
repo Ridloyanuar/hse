@@ -109,7 +109,6 @@ class C_controller extends CI_Controller
         
         $flash_data = $this->session->flashdata('a_data');
         if ($flash_data != null) {
-            var_dump($flash_data);
             $a_data['error_message'] = $flash_data['message'];
             $a_data['error_code'] = $flash_data['code'];
         }
