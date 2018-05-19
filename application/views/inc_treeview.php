@@ -32,43 +32,7 @@
               <div class="row">
                   <div class="col-xs-6">
                       <ul id="treeview">
-                          <li data-icon-cls="fa fa-inbox">Inbox
-                              <ul>
-                                  <li><b>Today (2)</b>
-                                    <ul>
-                                      <li><b>Today (2)</b></li>
-                                      <li>Monday</li>
-                                      <li>Last Week</li>
-                                  </ul>
-                                  </li>
-                                  <li>Monday</li>
-                                  <li>Last Week</li>
-                              </ul>
-                          </li>
-                          <li data-icon-cls="fa fa-trash">Trash
-                          </li>
-                          <li data-icon-cls="fa fa-calendar">Calendar
-                              <ul>
-                                  <li>Day</li>
-                                  <li>Week</li>
-                                  <li>Month</li>
-                              </ul>
-                          </li>
-                          <li data-icon-cls="fa fa-user">Contacts
-                              <ul>
-                                  <li>Alexander Stein</li>
-                                  <li>John Doe</li>
-                                  <li>Paul Smith</li>
-                                  <li>Steward Lynn</li>
-                              </ul>
-                          </li>
-                          <li data-icon-cls="fa fa-folder">Folders
-                              <ul>
-                                  <li>Backup</li>
-                                  <li>Deleted</li>
-                                  <li>Projects</li>
-                              </ul>
-                          </li>
+                        <?= $controller->CreateTreeView($tree_view, 0, 0, 0); ?>
                       </ul>
                   </div>
               </div>
@@ -85,36 +49,41 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <div class="form-horizontal">
-              <div class="box-body">
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Parent</label>
-
-                  <div class="col-sm-10">
-                    <input class="form-control" id="parent" placeholder="Parent Name" type="text">
+            <form action="<?= current_url() ?>/add" id="general-form" method="post" enctype="multipart/form-data">
+              <div class="form-horizontal">
+                <div class="box-body">
+                  <?php
+                    if(!empty($input)) foreach ($input as $keys) { 
+                      if ($keys['hidden']) continue;
+                  ?>
+                  <?php if ($keys['type'] == 'C') { ?>
+                    <input name="<?=$keys['key']?>" type="hidden" value="<?=$keys['value']?>">
+                  <?php } else { ?>
+                  <div class="form-group">
+                    <label class="col-sm-6"><?=$keys['label']?></label>
+                    <div class="col-sm-12">
+                  <?php if ($keys['type'] == 'S') { ?>
+                    <select class="form-control" name="<?=$keys['key']?>">
+                      <?php foreach ($keys['option'] as $key => $value) { ?>
+                        <option id="<?=$keys['key'] . '_' . $key?>" value="<?=$key?>"> <?=$value?></option>
+                      <?php } ?>
+                      </select>
+                  <?php } else if ($keys['type'] == 'F') { ?>
+                    <input name="<?=$keys['key']?>" type="file">
+                  <?php } else if ($keys['type'] == 'T') { ?>
+                      <input class="form-control" name="<?=$keys['key']?>" type="text">
+                  <?php } ?>
+                    </div>
                   </div>
+                  <?php } } ?>
                 </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Name</label>
-
-                  <div class="col-sm-10">
-                    <input class="form-control" id="name" placeholder="Page Name" type="text">
-                  </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                  <button type="submit" class="btn btn-success pull-right">Submit</button>
                 </div>
-                <div class="form-group">
-                  <label class="col-sm-2">File</label>
-
-                  <div class="col-sm-10">
-                    <input id="file" type="file">
-                  </div>
-                </div>
+                <!-- /.box-footer -->
               </div>
-              <!-- /.box-body -->
-              <div class="box-footer">
-                <button type="submit" class="btn btn-success pull-right">Submit</button>
-              </div>
-              <!-- /.box-footer -->
-            </div>
+            </form>
           </div>
         </div>
         <!-- /.col -->
@@ -151,10 +120,11 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?= base_url() ?>css/dist/js/demo.js"></script>
 <!-- page script -->
-<script>
-  jQuery(function ($) {
-      $("#treeview").shieldTreeView();
-  });
-</script>
+<?php  
+  if(!empty($script)){
+      include ('script/script_'.$script.'.php');
+  } 
+?>
+
 </body>
 </html>

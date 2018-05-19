@@ -20,6 +20,16 @@ class M_model extends CI_Model
     	$data = $this->db->count_all_results(table);
     	return $data;
     }
+
+    public function get_last_value($field, $whereConds) 
+    {
+    	$query = $this->db->select_max($field);
+    	if ($whereConds) {
+    		$query = $this->db->get_where(table, $whereConds);
+    	}
+    	$data = $query->result_array();
+    	return $data[0][$field];
+    }
     
 	public function add($data)
  	{
@@ -42,7 +52,7 @@ class M_model extends CI_Model
 		return $data;
  	}
 
- 	function update($data)
+ 	public function update($data)
  	{
  		$this->db->where(key, $data[key]);
 		$result = $this->db->update(table, $data);
@@ -66,10 +76,6 @@ class M_model extends CI_Model
  	}
 
  	public function getall($start = 0){
- 		// $jabatan = $this->session->userdata('jabatan');
-   //      $idakun = $this->session->userdata('idakun');
-   //      if($jabatan == 'validator' || $jabatan == 'surveyor') $this->db->where('idakun', $idakun);
-        
  	 	$this->db->order_by(order, 'asc');
  		$result = $this->db->get(table, 1000, $start);
  		if($result->num_rows() > 0) 

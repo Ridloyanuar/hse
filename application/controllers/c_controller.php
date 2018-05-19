@@ -43,9 +43,10 @@ class C_controller extends CI_Controller
         $data = $this->input->post();
         $this->load->model(model);
         $data[key] = $this->{model}->nextval();
-        $data = $this->{model}->reduce($data);
+        // $data = $this->{model}->reduce($data);
         $a_data = $this->{model}->add($data);
-        $this->getall($a_data);
+        $this->session->set_flashdata('a_data', $a_data);
+        redirect($_SERVER['HTTP_REFERER']);
     }
 
     public function update()

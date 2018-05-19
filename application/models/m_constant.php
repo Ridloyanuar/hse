@@ -20,10 +20,26 @@ class M_Constant extends M_model
     }
 
     function division() {
-        $this->db->order_by('id_division', 'asc');
+        $this->db->order_by(order, 'asc');
         $query = $this->db->get('division')->result_array();
         foreach ($query as $key) {
             $data[$key['id_division']] = $key['division_name'];
+        }
+        return $data;
+    }
+
+    function parent_page($sparate='') {
+        $data = array('0' => 'None' );
+        $this->db->order_by(order, 'asc');
+        $query = $this->db->get('page')->result_array();
+        foreach ($query as $key) {
+            $space = "";
+            if ($sparate != '') {
+                for ($i=1; $i < $key['level']; $i++) { 
+                    $space = $space . $sparate;
+                }
+            }
+            $data[$key['page_id']] = $space . $key['page_name'];
         }
         return $data;
     }
