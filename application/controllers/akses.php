@@ -19,7 +19,7 @@ class Akses extends C_controller
 
 		if($a_data['code'] == '200') {
 			$this->session->set_userdata('is_logged_in', $data['username']);
-            //session
+            // session
             foreach ($a_data['data'][0] as $key => $value) {
                 $this->session->set_userdata($key, $value);
             }
